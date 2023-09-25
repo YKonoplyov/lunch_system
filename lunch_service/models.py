@@ -9,3 +9,6 @@ class Restaurant(models.Model):
 class Tags(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
+class Dishes(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    ingredients = models.TextField()
