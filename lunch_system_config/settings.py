@@ -121,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "Europe.Kiev"
 
 USE_I18N = True
 
@@ -142,9 +142,14 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-DEFAULT_AUTHENTICATION_CLASSES = (
-    "rest_framework_simplejwt.authentication.JWTAuthentication",
-),
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.IsAuthenticated",
+    ),
+}
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),

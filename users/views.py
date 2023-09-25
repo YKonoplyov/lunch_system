@@ -10,14 +10,13 @@ from users.serializers import UserSerializer
 
 
 class CreateUserView(CreateAPIView):
-    serializer_class = UserSerializer
     authentication_classes = []
+    permission_classes = []
+    serializer_class = UserSerializer
 
 
 class ManageUserView(RetrieveUpdateAPIView):
     serializer_class = UserSerializer
-    authentication_classes = (JWTAuthentication,)
-    permission_classes = (IsAuthenticated,)
 
     def get_object(self):
         return self.request.user
