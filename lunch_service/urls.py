@@ -5,6 +5,8 @@ from lunch_service.views import (
     RestaurantCreateView,
     TagCreateView,
     DishesViewSet,
+    MenuViewSet,
+)
 
 lunch_service_router = routers.DefaultRouter()
 lunch_service_router.register("dishes", DishesViewSet)
