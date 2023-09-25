@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Restaurant(models.Model):
@@ -12,3 +13,17 @@ class Tags(models.Model):
 class Dishes(models.Model):
     name = models.CharField(max_length=255, unique=True)
     ingredients = models.TextField()
+class Menus(models.Model):
+    name = models.CharField(max_length=255)
+    dishes = models.ManyToManyField(Dishes, related_name="menus")
+    tags = models.ManyToManyField(Tags, related_name="menus")
+    date = models.DateField(default=timezone.now().date())
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["name", "date"],
+                                    name="name_date_unique")
+        ]
+
+    def __str__(self):
+        return self.name
