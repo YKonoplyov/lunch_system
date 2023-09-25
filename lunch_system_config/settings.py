@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
     "users",
     "lunch_service",
+    "vote_srvice",
 ]
 
 MIDDLEWARE = [
