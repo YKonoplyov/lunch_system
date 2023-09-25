@@ -8,5 +8,9 @@ urlpatterns = [
         "api/lunch_service/",
         include("lunch_service.urls", namespace="lunch-service")
     ),
+    path(
+        "api/vote_service/",
+        include("vote_service.urls", namespace="vote-service")
+    ),
     path("__debug__/", include("debug_toolbar.urls")),
 ]
