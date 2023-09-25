@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from lunch_service.models import Restaurant
+from lunch_service.models import Restaurant, Tags
 
 
 class RestaurantSerializer(ModelSerializer):
