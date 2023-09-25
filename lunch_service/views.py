@@ -8,6 +8,8 @@ from lunch_service.serializers import (
     RestaurantSerializer,
     TagsSerializer,
     DishSerializer,
+    MenuReadSerializer,
+    MenuSerializer,
 )
 
 
@@ -17,6 +19,17 @@ class RestaurantCreateView(CreateAPIView):
 
 class TagCreateView(CreateAPIView):
     serializer_class = TagsSerializer
+
+
 class DishesViewSet(ModelViewSet):
     serializer_class = DishSerializer
     queryset = Dishes.objects.all()
+
+
+class MenuViewSet(ModelViewSet):
+    queryset = Menus.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == "list" or self.action == "retrieve":
+            return MenuReadSerializer
+        return MenuSerializer
