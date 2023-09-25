@@ -6,13 +6,25 @@ class Restaurant(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField()
 
+    def __str__(self):
+        return self.name
+
 
 class Tags(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
+    def __str__(self):
+        return self.name
+
+
 class Dishes(models.Model):
     name = models.CharField(max_length=255, unique=True)
     ingredients = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+
 class Menus(models.Model):
     name = models.CharField(max_length=255)
     dishes = models.ManyToManyField(Dishes, related_name="menus")
