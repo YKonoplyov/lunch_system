@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
 
     "users",
+    "lunch_service",
 ]
 
 MIDDLEWARE = [
