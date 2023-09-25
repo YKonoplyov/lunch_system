@@ -47,7 +47,7 @@ INSTALLED_APPS = [
 
     "users",
     "lunch_service",
-    "vote_srvice",
+    "vote_service",
 ]
 
 MIDDLEWARE = [
@@ -141,6 +141,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+DEFAULT_AUTHENTICATION_CLASSES = (
+    "rest_framework_simplejwt.authentication.JWTAuthentication",
+),
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
