@@ -28,19 +28,18 @@ def api_client(create_user):
 @pytest.fixture
 def create_menu(create_dish, create_tag, create_restaurant):
     menu = Menus.objects.create(
-        name="Test Menu",
-        date=timezone.now().date(),
-        restaurant=create_restaurant
+        name="Test Menu", date=timezone.now().date(), restaurant=create_restaurant
     )
     menu.dishes.add(create_dish)
     menu.tags.add(create_tag)
     return menu
 
 
-
 @pytest.fixture
 def create_restaurant():
-    return Restaurant.objects.create(name="Test Restaurant", description="A test restaurant for testing.")
+    return Restaurant.objects.create(
+        name="Test Restaurant", description="A test restaurant for testing."
+    )
 
 
 @pytest.fixture
@@ -50,7 +49,9 @@ def create_tag():
 
 @pytest.fixture
 def create_dish():
-    return Dishes.objects.create(name="Test Dish", ingredients="Ingredient 1, Ingredient 2")
+    return Dishes.objects.create(
+        name="Test Dish", ingredients="Ingredient 1, Ingredient 2"
+    )
 
 
 @pytest.mark.django_db

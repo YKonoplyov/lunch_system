@@ -1,9 +1,8 @@
-from django.shortcuts import render
+from django.utils import timezone
 from rest_framework.generics import CreateAPIView
-from rest_framework import mixins
-from rest_framework.viewsets import GenericViewSet, ModelViewSet
+from rest_framework.viewsets import ModelViewSet
 
-from lunch_service.models import Restaurant, Dishes, Menus
+from lunch_service.models import Dishes, Menus
 from lunch_service.serializers import (
     RestaurantSerializer,
     TagsSerializer,
@@ -27,9 +26,11 @@ class DishesViewSet(ModelViewSet):
 
 
 class MenuViewSet(ModelViewSet):
-    queryset = Menus.objects.all()
+    queryset = Menus.objects.filter(date=timezone.now().date())
 
     def get_serializer_class(self):
-        if self.action == "list" or self.action == "retrieve":
-            return MenuReadSerializer
-        return MenuSerializer
+        if self.action == "create":
+            return MenuSerializer
+        if self.action == "update":
+            return MenuSerializer
+        return MenuReadSerializer

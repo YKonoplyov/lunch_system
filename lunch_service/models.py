@@ -30,12 +30,15 @@ class Menus(models.Model):
     dishes = models.ManyToManyField(Dishes, related_name="menus")
     tags = models.ManyToManyField(Tags, related_name="menus")
     date = models.DateField(default=timezone.now().date())
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name="menus")
+    restaurant = models.ForeignKey(
+        Restaurant, on_delete=models.CASCADE, related_name="menus"
+    )
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=["name", "date"],
-                                    name="name_date_unique")
+            models.UniqueConstraint(
+                fields=["name", "date"], name="name_date_unique"
+            )
         ]
 
     def __str__(self):

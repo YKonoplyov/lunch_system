@@ -14,6 +14,7 @@ def user_data():
         "is_superuser": False,
     }
 
+
 @pytest.fixture
 def superuser_data():
     return {
@@ -23,9 +24,11 @@ def superuser_data():
         "is_superuser": True,
     }
 
+
 @pytest.fixture
 def create_employee(user_data):
     return get_user_model().objects.create_user(**user_data)
+
 
 @pytest.fixture
 def create_superemployee(superuser_data):
@@ -39,6 +42,7 @@ def test_create_employee(create_employee):
     assert employee.is_staff is False
     assert employee.is_superuser is False
     assert employee.check_password("testpassword")
+
 
 @pytest.mark.django_db
 def test_create_superemployee(create_superemployee):

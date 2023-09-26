@@ -30,8 +30,12 @@ class MenuSerializer(ModelSerializer):
 
 class MenuReadSerializer(MenuSerializer):
     tags = serializers.SlugRelatedField(
-        slug_field="name", read_only=True, many=True,
+        slug_field="name",
+        read_only=True,
+        many=True,
     )
     dishes = serializers.SlugRelatedField(
-        slug_field="name", read_only=True, many=True,
+        slug_field="name",
+        read_only=True,
+        many=True,
     )

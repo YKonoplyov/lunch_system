@@ -2,7 +2,12 @@ import pytest
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from vote_service.models import Votes
-from lunch_service.tests.test_lunch_service_models import create_menu, create_dish, create_tag, create_restaurant
+from lunch_service.tests.test_lunch_service_models import (
+    create_menu,
+    create_dish,
+    create_tag,
+    create_restaurant,
+)
 
 Employee = get_user_model()
 

@@ -7,4 +7,3 @@ admin.site.unregister(Group)
 
 
 admin.site.register(get_user_model())
-

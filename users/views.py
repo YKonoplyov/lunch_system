@@ -3,8 +3,6 @@ from rest_framework.generics import (
     CreateAPIView,
     RetrieveUpdateAPIView,
 )
-from rest_framework.permissions import IsAuthenticated
-from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from users.serializers import UserSerializer
 
@@ -20,4 +18,3 @@ class ManageUserView(RetrieveUpdateAPIView):
 
     def get_object(self):
         return self.request.user
-

@@ -9,8 +9,9 @@ from lunch_service.tests.test_lunch_service_models import (
     create_menu,
     create_dish,
     create_tag,
-    create_restaurant
+    create_restaurant,
 )
+
 User = get_user_model()
 
 
@@ -20,7 +21,6 @@ def create_user():
         email="testuser@example.com",
         password="testpassword",
     )
-
 
 
 @pytest.fixture
@@ -47,7 +47,6 @@ def test_create_vote(api_client, create_user, create_menu):
     response = api_client.post(url, data={"menu": menu.id})
     vote = Votes.objects.last()
     assert vote.menu == menu
-
 
 
 @pytest.mark.django_db

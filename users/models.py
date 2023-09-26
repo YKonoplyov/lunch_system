@@ -2,6 +2,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+
 class CustomUserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -24,7 +25,9 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault("is_superuser", True)
 
         if extra_fields.get("is_staff") is not True:
-            raise ValueError("Super user should have attribute is_staff True")
+            raise ValueError(
+                "Super user should have attribute is_staff True"
+            )
         if extra_fields.get("is_superuser") is not True:
             raise ValueError(
                 "Superuser should have attribute is_superuser True"
