@@ -29,7 +29,7 @@ class Menus(models.Model):
     name = models.CharField(max_length=255)
     dishes = models.ManyToManyField(Dishes, related_name="menus")
     tags = models.ManyToManyField(Tags, related_name="menus")
-    date = models.DateField(default=timezone.now().date())
+    date = models.DateField(default=timezone.now())
     restaurant = models.ForeignKey(
         Restaurant, on_delete=models.CASCADE, related_name="menus"
     )
