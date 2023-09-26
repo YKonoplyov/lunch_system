@@ -22,10 +22,11 @@ def create_dish():
     )
 
 @pytest.fixture
-def create_menu(create_dish, create_tag):
+def create_menu(create_dish, create_tag, create_restaurant):
     menu = Menus.objects.create(
         name="Test Menu",
-        date=timezone.now()
+        date=timezone.now(),
+        restaurant=create_restaurant
     )
     menu.dishes.add(create_dish)
     menu.tags.add(create_tag)
@@ -38,9 +39,9 @@ def test_create_restaurant(create_restaurant):
     assert restaurant.description == "A test restaurant for testing."
 
 @pytest.mark.django_db
-def test_unique_name():
+def test_unique_name(create_restaurant):
     Restaurant.objects.create(name="Unique Restaurant", description="Description 1")
-    with pytest.raises(Exception):
+    with pytest.raises(IntegrityError):
         Restaurant.objects.create(name="Unique Restaurant", description="Description 2")
 
 @pytest.mark.django_db
@@ -64,8 +65,9 @@ def test_create_menu(create_menu, create_dish, create_tag):
     assert dish in list(menu.dishes.all())
     assert tag in list(menu.tags.all())
 
+
 @pytest.mark.django_db
-def test_unique_name_date():
-    Menus.objects.create(name="Menu 1", date=timezone.now())
+def test_unique_name_date(create_restaurant):
+    Menus.objects.create(name="Menu 1", date=timezone.now(), restaurant=create_restaurant)
     with pytest.raises(IntegrityError):
-        Menus.objects.create(name="Menu 1", date=timezone.now())
+        Menus.objects.create(name="Menu 1", date=timezone.now(), restaurant=create_restaurant)

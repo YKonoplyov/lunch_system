@@ -5,13 +5,13 @@ from rest_framework import status
 from rest_framework.test import APIClient
 from lunch_service.models import Menus
 from vote_service.models import Votes
-
+from lunch_service.tests.test_lunch_service_models import (
+    create_menu,
+    create_dish,
+    create_tag,
+    create_restaurant
+)
 User = get_user_model()
-
-
-@pytest.fixture
-def api_client():
-    return APIClient()
 
 
 @pytest.fixture
@@ -21,10 +21,6 @@ def create_user():
         password="testpassword",
     )
 
-
-@pytest.fixture
-def create_menu():
-    return Menus.objects.create(name="Test Menu", date="2023-09-25")
 
 
 @pytest.fixture
@@ -36,13 +32,21 @@ def create_vote(create_user, create_menu):
     )
 
 
+@pytest.fixture
+def api_client(create_user):
+    client = APIClient()
+    client.force_authenticate(create_user)
+    return client
+
+
 @pytest.mark.django_db
-def test_create_vote(api_client, create_user):
+def test_create_vote(api_client, create_user, create_menu):
+    menu = create_menu
     url = reverse("vote-service:make_vote")
     api_client.force_authenticate(user=create_user)
-    response = api_client.post(url, data={"menu": 1})
+    response = api_client.post(url, data={"menu": menu.id})
     vote = Votes.objects.last()
-    assert vote
+    assert vote.menu == menu
 
 
 

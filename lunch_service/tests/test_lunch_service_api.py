@@ -1,6 +1,7 @@
 import pytest
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from django.utils import timezone
 from rest_framework.test import APIClient
 from rest_framework import status
 
@@ -25,11 +26,16 @@ def api_client(create_user):
 
 
 @pytest.fixture
-def create_menu(create_dish, create_tag):
-    menu = Menus.objects.create(name="Test Menu")
+def create_menu(create_dish, create_tag, create_restaurant):
+    menu = Menus.objects.create(
+        name="Test Menu",
+        date=timezone.now().date(),
+        restaurant=create_restaurant
+    )
     menu.dishes.add(create_dish)
     menu.tags.add(create_tag)
     return menu
+
 
 
 @pytest.fixture
