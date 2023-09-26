@@ -1,12 +1,12 @@
 from django.db.models import Count, F, Q
 from django.db.models.functions import Coalesce
 from django.utils import timezone
+from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from lunch_service.models import Menus
 from vote_service.permissions import HasNotVoted
@@ -50,6 +50,16 @@ class GetVoteResultsView(APIView):
         )
         return list(vote_results)
 
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                "date_voted",
+                type={"type": "date"},
+                description="Get votes for past days",
+                required=False,
+            )
+        ]
+    )
     def get(self, request):
         date_voted = self.request.query_params.get("date_voted")
         filtering_date = timezone.now().date()
